@@ -5,7 +5,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
 
   const getNotes = async () => {
-    const res = await axios.get("http://localhost:3000/api/notes");
+    const res = await axios.get("https://trig-notes.onrender.com/api/notes");
     setNotes(res.data.notes);
   };
 
@@ -19,7 +19,7 @@ const App = () => {
     e.preventDefault();
     const { title, description } = e.target.elements;
     axios
-      .post("http://localhost:3000/api/notes", {
+      .post("https://trig-notes.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -30,7 +30,7 @@ const App = () => {
   };
 
   const deletenoteHandler = async (id) => {
-    await axios.delete("http://localhost:3000/api/notes/" + id);
+    await axios.delete("https://trig-notes.onrender.com/api/notes/" + id);
     getNotes();
   };
 
@@ -38,7 +38,7 @@ const App = () => {
     e.preventDefault();
     const newValue = e.target.elements.newDesc.value;
     try {
-      await axios.patch("http://localhost:3000/api/notes/" + id, {
+      await axios.patch("https://trig-notes.onrender.com/api/notes/" + id, {
         description: newValue,
       });
       setEditId(null);
