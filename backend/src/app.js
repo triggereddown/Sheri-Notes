@@ -1,8 +1,10 @@
 import express from "express";
 import notesModel from "./models/notes.model.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const notes = [
   // title:"Title 1",
