@@ -1,10 +1,17 @@
 import express from "express";
 import notesModel from "./models/notes.model.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static("./public"));
 
 const notes = [
   // title:"Title 1",
@@ -12,9 +19,9 @@ const notes = [
 ];
 
 // Entry point
-app.get("/", (req, res) => {
-  res.send("Hello from Deep");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello from Deep");
+// });
 
 // POST API
 // app.post("/notes", (req, res) => {
@@ -76,6 +83,14 @@ app.patch("/api/notes/:id", async (req, res) => {
       message: "An error occurred while updating the note's description",
     });
   }
+});
+
+//dirname jis file me kaam ho rhi wo jis folder ke andar hai us folder ki path mil jaati hai
+// cd .. ki trh dirname .. krke ek level aur bahar chle jao fir public me ghus jao
+console.log(__dirname, "/public/index.html");
+
+app.use("*name", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "/public/index.html"));
 });
 
 export default app;
